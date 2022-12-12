@@ -6,11 +6,16 @@
 /*   By: tduprez <tduprez@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 13:17:07 by tduprez           #+#    #+#             */
-/*   Updated: 2022/12/11 13:47:39 by tduprez          ###   ########lyon.fr   */
+/*   Updated: 2022/12/11 22:46:45 by tduprez          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "check_map_error.h"
+#include "../lib/so_long.h"
+
+// Checker si erreur en cas de map vide ou de map non envoyée
+// Map rectengulaire en hauteur et largeur ?
+// Script test maps error
+// Chemin valide ?
 
 int	ft_strlen_pars(char *s)
 {
@@ -66,11 +71,10 @@ char	**map_parser(char *map)
 	res[i] = get_next_line(fd);
 	while (res[i])
 	{
+		// printf("%s\n", res[i]);
 		i++;
 		res[i] = get_next_line(fd);
 	}
-	i++;
-	res[i] = NULL;
 	close(fd);
 	return (res);
 }
@@ -92,36 +96,113 @@ int	check_map_wall(char **map, int nb_lines)
 			while (map[i][j] == '1')
 				j++;
 			if (j != ft_strlen_pars(map[i]))
-				return (1);
+				return (0);
 		}
 		else
 		{
 			while (map[i][j++])
 				if (j == 0 || j == (ft_strlen_pars(map[i]) - 1))
 					if (map[i][j] != '1')
-						return (1);
+						return (0);
 		}
+		i++;
+	}
+	return (1);
+}
+
+int	check_map_elements(char **map)
+{
+	int	i;
+	int	j;
+	int	exit;
+	int	collectible;
+	int	start;
+
+	i = -1;
+	exit = 0;
+	collectible = 0;
+	start = 0;
+	while (map[++i])
+	{
+		j = 0;
+		while (map[i][j++])
+		{
+			if (map[i][j] == 'E')
+				exit++;
+			else if (map[i][j] == 'P')
+				start++;
+			else if (map[i][j] == 'C')
+				collectible++;
+		}
+	}
+	if (!(exit == 1 && start == 1 && collectible >= 1))
+		return (0);
+	return (1);
+}
+
+int	ft_is_charset(char c, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (charset[i])
+	{
+		if (c == charset[i])
+			return (1);
 		i++;
 	}
 	return (0);
 }
 
-int	main(void)
+int	check_map_char(char **map)
 {
-	char	**str;
-	char	path[] = "../map1.ber";
-	int		i = 0;
+	int	i;
+	int	j;
 
-	str = map_parser(path);
-	// check_map_wall(str, nb_lines("../map1.ber"));
-	if (check_map_wall(str, nb_lines(path)))
-		printf("ERROR WALL\n");
-	else
+	i = 0;
+	while (map[i])
 	{
-		while (str[i])
+		j = 0;
+		while (map[i][j])
 		{
-			printf("%s", str[i]);
-			i++;
+			if (!ft_is_charset(map[i][j], "CPE10\n"))
+				return (0);
+			j++;
 		}
+		i++;
 	}
+	return (1);
+}
+
+int	check_map_lines(char **map)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	k = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] && map[i][j] != '\n')
+			j++;
+		if (j != k && i > 0)
+			return (0);
+		k = j;
+		i++;
+	}
+	return (1);
+}
+
+int	check_map_square(char **map, int nb_lines)
+{
+	int	i;
+
+	i = 0;
+	while (map[0][i] && map[0][i] != '\n')
+		i++;
+	if (nb_lines > i)
+		return (0);
+	return (1);
 }

@@ -6,11 +6,11 @@
 /*   By: tduprez <tduprez@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:06:01 by tduprez           #+#    #+#             */
-/*   Updated: 2022/12/09 11:02:42 by tduprez          ###   ########lyon.fr   */
+/*   Updated: 2022/12/11 19:27:11 by tduprez          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../lib/so_long.h"
 
 size_t	ft_strlen(const char *s)
 {

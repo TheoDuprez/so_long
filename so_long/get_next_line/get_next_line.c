@@ -6,11 +6,11 @@
 /*   By: tduprez <tduprez@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 14:06:04 by tduprez           #+#    #+#             */
-/*   Updated: 2022/12/09 10:53:08 by tduprez          ###   ########lyon.fr   */
+/*   Updated: 2022/12/11 19:27:14 by tduprez          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../lib/so_long.h"
 
 char	*ft_before_cariage(char *s)
 {
