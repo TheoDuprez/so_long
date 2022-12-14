@@ -6,7 +6,7 @@
 /*   By: tduprez <tduprez@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/11 18:50:50 by tduprez           #+#    #+#             */
-/*   Updated: 2022/12/11 22:40:20 by tduprez          ###   ########lyon.fr   */
+/*   Updated: 2022/12/14 14:07:22 by tduprez          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@
 
 // CHECK_MAP_ERROR
 
-char	**map_parser(char *map);
+char	**map_parser(char *map_path);
 int		check_map_wall(char **map, int nb_lines);
-int		nb_lines(char	*map);
+int		nb_lines(char *map_path);
 int		check_map_elements(char **map);
 int		check_map_char(char **map);
 int		ft_is_charset(char c, char *charset);
 int		check_map_lines(char **map);
-int		check_map_square(char **map, int nb_lines);
+int		ft_strlen_pars(char *s);
+int		check_map_elements_2(char **map, int i, int j, char c);
+int		check_map_error(char **argv);
+int		check_map_index_row(char **map, char *map_path, char c);
+int		check_map_index_column(char **map, char *map_path, char c);
+int	check_map_backtrack(char **map, char *map_path, int i, int j);
 
 // GET_NEXT_LINE //
 
